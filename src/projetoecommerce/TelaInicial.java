@@ -1,17 +1,26 @@
 package projetoecommerce;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import projetoecommerce.util.Cores;
+import projetoecommerce.model.Cliente;
+import projetoecommerce.repository.ClienteRepository;
+import projetoecommerce.controller.EcommerceController;
+import projetoecommerce.model.CartaoCredito;
+
 
 public class TelaInicial {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		EcommerceController cliente = new EcommerceController();
 
 		Scanner leia = new Scanner(System.in);
-		int opcao, construcao, quantidadec, decoracao, quantidaded, acab, quantidadea;
-		float construcao1, construcao2, construcao3, classec, classeb, classea, shine, dark, primeiro, preco;
+		int opcao, construcao, quantidadec, decoracao, quantidaded, acab, quantidadea, funcionario, numero;
+		float construcao1, construcao2, construcao3, classec, classeb, classea, shine, dark, primeiro, preco, limite, pagarfatura, fatura;
+		String nome;
 		
 		construcao1 = 2.00f;
 		construcao2 = 35.90f;
@@ -39,6 +48,7 @@ public class TelaInicial {
 		System.out.println("           1 - Construção                    ");
 		System.out.println("           2 - Decoração                     ");
 		System.out.println("           3 - Acabamento                    ");
+		System.out.println("           4 - Área do funcionario           ");
 		System.out.println("           0 - Sair                          ");
 		System.out.println("_____________________________________________");
 		System.out.println("                                             " + Cores.TEXT_RESET);
@@ -83,7 +93,8 @@ public class TelaInicial {
 				default:
 					System.out.println("Por favor digite uma opção válida!");
 					break;
-			}break;
+			}keyPress();
+			break;
 			case 2:
 				System.out.println("            Escolha a opcão desejada:          ");
 				System.out.println("                                               ");
@@ -111,7 +122,8 @@ public class TelaInicial {
 				default:
 					System.out.println("Por favor digite uma opção válida!");
 					break;
-				}
+				}keyPress();
+				break;
 			case 3:
 				System.out.println("          Escolha a opção desejada                ");
 				System.out.println("                                                  ");
@@ -139,10 +151,51 @@ public class TelaInicial {
 				default:
 					System.out.println("Por favor digite uma opção válida!");
 					break;
-				}break;
+				}
+				keyPress();
+				break;
+				
+			case 4:
+				System.out.println("                                         ");
+				System.out.println("Olá funcionário, digite a opção desejada:");
+				System.out.println("    1 - Cadastrar um cliente             ");
+				System.out.println("    2 - Listar os clientes               ");
+				System.out.println("    3 - Aumentar o limite do Cartão de Crédito");
+				System.out.println("    4 - Pagar fatura                       ");
+				System.out.println("    6 - Atualizar um cliente               ");
+				System.out.println("    5 - Deletar um cliente                 ");
+				funcionario = leia.nextInt();
+				
+		
+			switch (funcionario) {
+				case 1:
+					System.out.println("Digite o nome do cliente:");
+					nome = leia.next();
+					System.out.println("Digite o número de cadastro: ");
+					int numerocadastro = leia.nextInt();
+					System.out.println("Qual o limite do cartão de Crédito? ");
+					limite = leia.nextFloat();
+					System.out.println("Qual o valor da fatura?");
+					fatura = leia.nextFloat();
+					cliente.cadastrar(null);
+					keyPress();
+					break;
+					
+				case 2: 
+					System.out.println("Listar todos os clientes: ");
+					cliente.listarTodas();
+					keyPress();
+					break;
+					
+				case 3: 
+					
+				}
+				keyPress();
+				break;
 				
 				default:
 					System.out.println(Cores.TEXT_RED_BOLD + "\nOpção Inválida!\n" + Cores.TEXT_RESET);
+					keyPress();
 					break;
 				}
 		
@@ -156,5 +209,14 @@ public class TelaInicial {
 		System.out.println(Cores.TEXT_PURPLE + Cores.ANSI_WHITE_BACKGROUND);
 		System.out.println("      Site Criado por: Thamires Martins       ");
 		
+	}
+	
+	public static void keyPress() {
+		try {
+			System.out.println("\nPressione Enter para Continuar!");
+			System.in.read();
+		} catch (IOException e) {
+			System.out.println("Tecla Inválida!");
+		}
 	}
 }
